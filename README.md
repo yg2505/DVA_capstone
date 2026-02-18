@@ -1,5 +1,5 @@
-# 📊 Loan Default Risk Analysis  
-### A Study on Loan Preferences, Repayment Behavior & Default Risk
+# 📊 Loan Risk & Repayment Analysis Dashboard  
+### A Data-Driven Study on Loan Size, Interest Bands & Default Risk  
 
 ---
 
@@ -20,218 +20,234 @@
 
 ---
 
-## 📌 Project Overview
+## 📌 Project Overview  
 
-Financial institutions often struggle to clearly map borrower employment and financial characteristics to repayment behavior. Weak segmentation leads to higher default rates, inefficient credit allocation, and lower portfolio profitability.
+Financial institutions often struggle to clearly connect loan characteristics (loan size, interest rate band, borrower financial stress indicators) with repayment outcomes.
 
-This project analyzes **49,999 Lending Club loans** to identify risk drivers using:
+Weak segmentation leads to:
+- Higher default rates  
+- Inefficient capital allocation  
+- Reduced portfolio profitability  
 
-- Data Cleaning  
-- Feature Engineering  
-- KPI Framework  
-- Pivot Table Analysis  
-- Interactive Dashboard (Google Sheets)  
+This project analyzes **49,999 consumer loans** and builds an interactive **Google Sheets Risk Dashboard** to identify structured default patterns across:
 
----
-
-## 🎯 Business Problem
-
-Banks lack a structured, data-driven framework to connect borrower employment and financial signals with actual repayment outcomes.
-
-### Objective
-To identify high-risk segments and support:
-- Smarter credit approvals  
-- Risk-based pricing decisions  
-- Improved portfolio profitability  
+- Loan Size (Amount Band)  
+- Interest Rate Band  
+- Loan Status Distribution  
+- Default Concentration Trends  
 
 ---
 
-## 📂 Repository Structure
+## 🎯 Business Objective  
 
+To build a structured KPI-driven framework that helps lenders:
+
+- Identify high-risk segments  
+- Monitor portfolio default concentration  
+- Improve risk-based approval strategies  
+- Support smarter credit allocation decisions  
 
 ---
 
-## 🛠 Data Engineering
+## 📂 Dataset  
 
-### 📥 Data Source
-- Lending Club Public Dataset (GitHub)
-- 49,999 loan records
-- ~30 variables
-- Consumer unsecured loans
+- **Source:** GitHub (Lending Dataset)  
+- **Records:** 49,999 loans  
+- **Variables:** ~30 borrower & loan attributes  
+- **Loan Type:** Consumer unsecured lending  
 
-### 🧹 Data Cleaning (Google Sheets)
+---
 
-- Converted Interest Rate (%) from text to decimal  
-- Standardized Employment Length categories  
-- Created Risk Bands:
-  - Interest Rate Band
-  - Loan Amount Band
-  - DTI Band
-  - Revolving Utilization Band  
+## 🧹 Data Preparation (Google Sheets)
+
+### Cleaning Steps
+- Converted interest rate from text to numeric format  
+- Standardized categorical fields  
+- Removed inconsistencies in loan status  
 - Handled missing values  
-- Assumptions:
-  - **Charged Off = Default**
-  - **Fully Paid = Successful repayment**
+- Created structured segmentation bands  
+
+### Engineered Features
+- **Interest Rate Band:** Low, Medium, High, Very High  
+- **Loan Amount Band:** Low, Medium, High, Very High  
+- Loan Status Categories:
+  - Fully Paid  
+  - Current  
+  - Charged Off (treated as Default)  
+
+### Assumptions
+- Charged Off = Default  
+- Fully Paid = Successful repayment  
+- Current loans considered active (non-defaulted)  
 
 ---
 
-## 📊 KPI Framework
+## 📊 KPI Framework  
 
 | KPI | Value | Business Meaning |
 |------|--------|------------------|
 | Total Loans | 49,999 | Portfolio size |
 | Total Defaults | 7,579 | Risk exposure |
-| Default Rate | 15.16% | Core risk indicator |
-| Repayment Rate | 84.84% | Portfolio strength |
-| High-Risk Exposure | 2.20% | Concentration risk |
+| Fully Paid Loans | 27,074 | Successful repayments |
+| Overall Default Rate | 15.16% | Core risk indicator |
 
-These KPIs directly measure portfolio risk and segmentation efficiency.
+These KPIs form the executive layer of the dashboard.
 
 ---
 
-## 📈 Key Insights
+## 📊 Dashboard Structure  
 
-### 1️⃣ Interest Rate vs Default
-- Low (<8%) → **3.67%**
-- Very High (>16%) → **27.56%**
+### 🔹 Executive Overview
+Displays:
+- Total Loans  
+- Fully Paid  
+- Total Defaults  
+- Overall Default Rate  
+
+Interactive Filters:
+- Interest Rate Band  
+- Loan Amount Band  
+
+---
+
+### 🔹 Loan Size Analysis
+
+**1️⃣ Loan Status Distribution by Loan Size**  
+Stacked bar chart showing:
+- Fully Paid  
+- Current  
+- Charged Off  
+
+**2️⃣ Default Rate by Loan Size**  
+Default increases as loan size increases.  
+Very High loan size shows the highest default percentage.
+
+**3️⃣ Charged-Off Loans Trend by Loan Size**  
+Trend line highlighting default concentration across loan bands.
+
+**Insight:** Medium and High loan sizes form major exposure pockets.
+
+---
+
+### 🔹 Interest Rate Analysis
+
+**4️⃣ Loan Status Distribution by Interest Band**  
+Higher interest bands show visibly higher charged-off volumes.
+
+**5️⃣ Default Rate by Interest Rate Band**
+
+| Interest Band | Default Rate |
+|---------------|--------------|
+| Low | 3.67% |
+| Medium | 9.01% |
+| High | 17.31% |
+| Very High | 27.56% |
 
 Default risk increases consistently with higher interest rates.
 
----
-
-### 2️⃣ Credit Grade vs Default
-
-| Grade | Default Rate |
-|--------|--------------|
-| A | 4.74% |
-| B | 9.15% |
-| C | 16.16% |
-| D | 22.98% |
-| E | 28.43% |
-| F | 36.69% |
-| G | 42.45% |
-
-**Credit Grade is the strongest predictor of default.**
+**6️⃣ Total Loans by Interest Band (Donut Chart)**  
+- Medium band has highest portfolio exposure  
+- Very High band holds ~22% of total loans  
+- Clear risk concentration pockets visible  
 
 ---
 
-### 3️⃣ DTI Impact
-- Very High DTI → **21.04% default**
-- Low DTI → **11.87% default**
+## 📈 Key Analytical Findings  
 
-Higher debt burden increases repayment stress.
+### 1️⃣ Interest Rate is a Strong Risk Driver  
+Default rate rises sharply from Low to Very High bands.  
+Very High band default is nearly 7× Low band.
 
----
+### 2️⃣ Loan Size Impacts Default  
+Higher loan amounts show elevated default behavior.  
+Large-ticket lending increases exposure risk.
 
-### 4️⃣ Revolving Utilization
-- High (>75%) → ~16% default
-- Low utilization → 12.73%
+### 3️⃣ Portfolio Risk Concentration  
+Medium and High segments form bulk exposure.  
+Very High segments show high severity despite lower volume.
 
-Credit overuse signals liquidity risk.
-
----
-
-### 5️⃣ Employment Length
-Default variation: 14.9% – 15.8%  
-Relatively weaker predictor compared to financial indicators.
+### 4️⃣ Employment Length  
+Variation across employment categories is limited.  
+Financial variables outperform demographic factors in predicting risk.
 
 ---
 
-## 📊 Dashboard
+## 🧠 Risk Segmentation Strategy  
 
-Built using **Google Sheets** with:
+Segmentation built using:
+- Interest Rate Band  
+- Loan Amount Band  
+- Default Status  
 
-### Executive View
-- Total Loans
-- Default Rate
-- Repayment Rate
-- Risk concentration overview
+### High-Risk Cluster Identified:
+**Very High Interest Band + Higher Loan Amount**
 
-### Operational View
-- Default by Grade
-- Default by Interest Band
-- DTI Segmentation
-- Revolving Utilization Analysis
-- Filters: Term, Grade, Employment Length
+This combination creates concentrated default pockets.
 
 ---
 
-## 🧠 Advanced Risk Segmentation
+## 💡 Business Recommendations  
 
-A structured segmentation model was built using:
-
-- Interest Rate Bands  
-- Credit Grade  
-- DTI Bands  
-- Revolving Utilization Bands  
-
-### Key Finding:
-**Grade D–G + Very High Interest Band creates concentrated default pockets.**
-
-This provides a clear risk-based approval strategy.
+1. Tighten approvals in Very High interest band  
+2. Cap exposure in higher loan amount segments  
+3. Introduce stricter DTI & utilization thresholds  
+4. Develop a Probability-of-Default (PD) model  
+5. Implement risk-based pricing  
 
 ---
 
-## ✅ Business Recommendations
+## 📉 Impact Estimation  
 
-1. Tighten approvals for Grade D–G  
-2. Cap exposure in Very High interest band  
-3. Introduce DTI & utilization thresholds  
-4. Develop a Probability-of-Default (PD) scoring model  
-5. Target low-risk borrowers for premium products  
+If exposure to the Very High band reduces by 25%:
 
----
-
-## 💰 Impact Estimation
-
-If approvals in the Very High risk band reduce by 25%:
-
-→ Portfolio default rate may drop by **1–2 percentage points**
+→ Portfolio default rate may decline by **1–2 percentage points**
 
 ### Expected Benefits
 - Reduced credit losses  
-- Lower provisioning costs  
+- Lower provisioning requirements  
 - Improved ROA  
 - Better capital efficiency  
 - Stronger risk-adjusted returns  
 
 ---
 
-## ⚠️ Limitations
+## ⚠️ Limitations  
 
-- No macroeconomic controls  
-- No Loss-Given-Default estimation  
-- Observational dataset (no causal inference)  
-- Period-specific economic conditions  
+- No macroeconomic control variables  
+- No LGD/EAD modeling  
+- Descriptive analysis (no predictive modeling)  
+- Period-specific data snapshot  
 
 ---
 
-## 🚀 Future Scope
+## 🚀 Future Scope  
 
-- Build predictive credit scoring model  
+- Build ML-based credit scoring model  
+- Estimate PD, LGD, and EAD  
 - Integrate bureau data  
-- Estimate LGD & EAD  
-- Conduct pricing A/B testing  
-- Deploy automated risk dashboard  
+- Automate risk monitoring dashboard  
 
 ---
 
-## 📌 Conclusion
+## 🛠 Tools Used  
 
-Interest Rate and Credit Grade are dominant predictors of default risk.  
-DTI and revolving utilization provide additional risk signals.  
-Employment length has limited predictive strength.
-
-Structured risk segmentation enables smarter lending decisions and improved portfolio performance.
-
----
-
-### 📎 Tools Used
 - Google Sheets  
 - Pivot Tables  
+- KPI Dashboard Design  
 - Data Cleaning & Feature Engineering  
-- KPI Framework Design  
+
+---
+
+## 📌 Final Conclusion  
+
+Interest Rate Band and Loan Size are strong predictors of default concentration.
+
+Structured segmentation enables:
+- Smarter credit approvals  
+- Reduced exposure concentration  
+- Improved portfolio profitability  
 
 ---
 
 > Academic Capstone Project – Banking & Financial Services Analytics
+
